@@ -1,0 +1,21 @@
+alixeaVersion: v1.0
+type: component
+name: FastAPI
+description: FastAPI component for Alixea
+
+supportsAdditionalHosts: { serviceName: 'app' }
+
+hosts:
+  - name: FastAPI
+    identifier: app
+    port: 8000
+
+images:
+  - identifier: app
+    prebuildImage: public.ecr.aws/p8t2q7f4/alixea/component-fastapi:[tag]
+
+# Staging and production install the deployment's commit on its own machine, in the image above. Development runs the
+# working copy instead
+build:
+  command: UV_COMPILE_BYTECODE=1 alixea-pm install --no-dev
+  waitForImports: false
